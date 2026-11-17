@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import * as authService from '../services/auth.service';
+import { resourceLimits } from 'node:worker_threads';
 
 export const login = async(req: Request, res: Response, next:NextFunction) =>{
   try {
@@ -11,5 +12,17 @@ export const login = async(req: Request, res: Response, next:NextFunction) =>{
     res.json({token:result.token, user: {username: result.user.username}})
   } catch(err){
     next(err)
+  }
+}
+
+export const googleLogin = async(req:Request, res: Response, next: NextFunction) => {
+  try {
+    const {token} = req.body;
+    const result = await authService.googleLogin(token);
+    if (!result.status) 
+      return res.status(400).json({status: false, message: result.message});
+    res.status(200).json({status: true, token: result.token});
+  } catch(err) {
+    next(err);
   }
 }
