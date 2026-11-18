@@ -9,7 +9,7 @@ const JWT_SECRET = process.env.JWT_SECRET || '';
 export const authenticate = (req: Request, res: Response, next: NextFunction) => {
   const header = req.headers.authorization;
   if (!header || !header.startsWith('Bearer ')){
-    res.status(401).json({message: "Missing or Invalid Authoriazation header"});
+    res.status(401).json({message: "Missing or Invalid Authorization header"});
     return;
   }
 
