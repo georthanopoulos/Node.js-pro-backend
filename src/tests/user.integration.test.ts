@@ -18,28 +18,28 @@ describe("User API Tests", () => {
 
   beforeAll(async() => {
     await server.start();
-    const hash = await bcrypt.hash("admin123", 10);
-    const user = await User.create({
-      username: 'admin',
-      password: hash,
-      email: "admin@aueb.gr",
-      roles:[]
-    });
-    token = jwt.sign(
-      {
-        username: user.username, 
-        email: user.email
-      },
-      JWT_SECRET,
-      {expiresIn: '1h'}
-    );
+    // const hash = await bcrypt.hash("admin123", 10);
+    // const user = await User.create({
+    //   username: 'admin10',
+    //   password: hash,
+    //   email: "admin@aueb.gr",
+    //   roles:[]
+    // });
+    // token = jwt.sign(
+    //   {
+    //     username: user.username, 
+    //     email: user.email
+    //   },
+    //   JWT_SECRET,
+    //   {expiresIn: '1h'}
+    // );
   });
 
   afterAll(async()=>{ await server.stop()});
 
   test('GET /users -> returns a list of users',async() => {
-    const res = await server.request.get("/user");
+    const res = await server.request.get("/users");
     expect(res.status).toBe(200)
     expect(Array.isArray(res.body)).toBe(true);
-  }, 30000);
+  }, 10000);
 });
