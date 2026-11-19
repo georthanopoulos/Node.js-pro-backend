@@ -41,7 +41,9 @@ export const create = async(req: Request, res:Response, next: NextFunction) =>{
     }
     res.status(200).json(result);
   } catch (err) {
-    next(err)
+    // console.log("Create ERROR", err)
+    return res.status(404).json({message: "user already exists"});
+    // next(err)
   } 
 }
 
